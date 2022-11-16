@@ -11,7 +11,7 @@ case "$1" in
 		;;
 	stop)
 		plist=$(pactl list | grep tcp -B1 | grep M | sed 's/[^0-9]//g')
-		[ -n "$plist" ] && pactl unload-module "$plist"
+		[ -n "$plist" ] && pactl unload-module "$plist" && pulseaudio --kill
 		;;
 	*)
 		echo "Usage: $0 start|stop" >&2
