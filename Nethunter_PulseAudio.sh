@@ -3,6 +3,13 @@
 # t.me/@Pero_Sar1111 for Paraphrasing the base script.
 # t.me/@MrRobin_Ho_Od for the idea of the project(Base script https://github.com/MrRob0-X/Nethunter_audio/blob/main/audio).
 
+# Define color codes
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+BLUE="\033[0;34m"
+NC="\033[0m" # No Color
+
 # Configuration
 PULSE_AUDIO_IP="127.0.0.1"  # IP address for the TCP stream
 PULSE_AUDIO_PORT="8000"     # Port for the TCP stream
@@ -15,7 +22,7 @@ MODULE_NAME="module-simple-protocol-tcp"
 function start_pulseaudio() {
     pulseaudio --check 2>/dev/null || pulseaudio --start > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then
-        echo "Failed to start PulseAudio. Please check PulseAudio installation."
+        echo -e "${RED}Failed to start PulseAudio. Please check PulseAudio installation.${NC}"
         exit 1
     fi
 }
@@ -31,9 +38,10 @@ function start_stream() {
         port="$PULSE_AUDIO_PORT" listen="$PULSE_AUDIO_IP" > /dev/null 2>&1
 
     if [[ $? -eq 0 ]]; then
-        echo "Audio stream started on $PULSE_AUDIO_IP:$PULSE_AUDIO_PORT."
+        echo -e "${YELLOW}Starting the TCP module.${NC}"
+        echo -e "${GREEN}Audio stream started on $PULSE_AUDIO_IP:$PULSE_AUDIO_PORT.${NC}"
     else
-        echo "Failed to start audio stream. Please check PulseAudio configuration."
+        echo -e "${RED}Failed to start audio stream. Please check PulseAudio configuration.${NC}"
     fi
 }
 
@@ -42,7 +50,7 @@ function stop_stream() {
     module_id=$(pactl list short modules | grep "$MODULE_NAME" | awk '{print $1}')
     if [[ -n "$module_id" ]]; then
         pactl unload-module "$module_id"
-        echo "Audio stream stopped."
+        echo -e "${YELLOW}Audio stream stopped.${NC}"
 
         # Check if PulseAudio should be stopped
         remaining_modules=$(pactl list short modules)
@@ -51,7 +59,7 @@ function stop_stream() {
             echo "PulseAudio stopped."
         fi
     else
-        echo "No audio stream found."
+        echo -e "${YELLOW}No audio stream found or confiured at this time.${NC}"
     fi
 }
 
@@ -59,9 +67,9 @@ function stop_stream() {
 function stream_status() {
     module_id=$(pactl list short modules | grep "$MODULE_NAME" | awk '{print $1}')
     if [[ -n "$module_id" ]]; then
-        echo "Audio stream is running on $PULSE_AUDIO_IP:$PULSE_AUDIO_PORT."
+        echo -e "${GREEN}Audio stream is running on $PULSE_AUDIO_IP:$PULSE_AUDIO_PORT.${NC}"
     else
-        echo "Audio stream is not running."
+        echo -e "${YELLOW}Audio stream is not running.${NC}"
     fi
 }
 
@@ -78,7 +86,7 @@ case "$1" in
         stream_status
         ;;
     *)
-        echo "Usage: $0 {start|stop|status}" >&2
+        echo -e "${BLUE}Usage: $0 {start|stop|status}${NC}" >&2
         exit 1
         ;;
 esac
