@@ -56,12 +56,16 @@ To check if the audio stream is running, use:
 
 ## Screenshots
 
-![In App Connection](assets/NetHunterAudio_1.jpg) 
+<div style="display: flex; justify-content: space-around;">
+  
+### Nethuner Audio App
+<img src="assets/NetHunterAudio_1.jpg" alt="In App Connection" style="width: 35%; margin: 5px;">
+<img src="assets/NetHunterAudio_2.jpg" alt="In App Disconnection" style="width: 35%; margin: 5px;">
 
-![In App Disconnection](assets/NetHunterAudio_2.jpg)
+### Nethunter Terminal Usage
+<img src="assets/NetHunterTerminal_1.jpg" alt="Checking Stream Status" style="width: 35%; margin: 5px;">
+<img src="assets/NetHunterTerminal_2.jpg" alt="Running script without installing pulseaudio" style="width: 35%; margin: 5px;">
 
-![Checking Stream Status](assets/NetHunterTerm_1.jpg)
-
-![Running script without installing pulseaudio](assets/NetHunterTerm_2.jpg)
+</div>
 
 
