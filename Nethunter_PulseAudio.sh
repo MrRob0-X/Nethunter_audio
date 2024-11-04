@@ -87,10 +87,17 @@ function stop_stream() {
 
 # Check the status of the audio stream
 function stream_status() {
-    module_id=$(pactl list short modules | grep "$MODULE_NAME" | awk '{print $1}')
+    output=$(pactl list short modules 2>&1) # Capture output and errors
+    module_id=$(echo "$output" | grep "$MODULE_NAME" | awk '{print $1}')
+
     if [[ -n "$module_id" ]]; then
         echo -e "${GREEN}Audio stream is running on $PULSE_AUDIO_IP:$PULSE_AUDIO_PORT.${NC}"
     else
+        error_code=$?
+        echo -e "${YELLOW}Error code: $error_code.${NC}"
+        if [[ $error_code -ne 0 ]]; then
+            echo -e "${RED}PulseAudio error: ${output}${NC}"
+        fi
         echo -e "${YELLOW}Audio stream is not running.${NC}"
     fi
 }
