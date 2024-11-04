@@ -26,9 +26,9 @@ function start_stream() {
     stop_stream
 
     # Start the TCP module
-    pactl load-module $MODULE_NAME rate=$PULSE_AUDIO_RATE format=$PULSE_AUDIO_FORMAT \
-        channels=$PULSE_AUDIO_CHANNELS source=auto_null.monitor record=true \
-        port=$PULSE_AUDIO_PORT listen=$PULSE_AUDIO_IP > /dev/null 2>&1
+    pactl load-module "$MODULE_NAME" rate="$PULSE_AUDIO_RATE" format="$PULSE_AUDIO_FORMAT" \
+        channels="$PULSE_AUDIO_CHANNELS" source=auto_null.monitor record=true \
+        port="$PULSE_AUDIO_PORT" listen="$PULSE_AUDIO_IP" > /dev/null 2>&1
 
     if [[ $? -eq 0 ]]; then
         echo "Audio stream started on $PULSE_AUDIO_IP:$PULSE_AUDIO_PORT."
