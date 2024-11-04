@@ -23,13 +23,13 @@ This script allows you to start, stop, and check the status of a PulseAudio TCP 
 
 2. **Make the script executable**:
    ```bash
-   chmod +x Nethunter_PulseAudio.sh
+   chmod +x audio
    ```
 
 3. **(Optional) Edit the Configuration**:
    Open the script in a text editor and adjust the configuration variables if needed:
    ```bash
-   nano Nethunter_PulseAudio.sh
+   nano audio
    ```
    - `PULSE_AUDIO_IP`: IP address for the TCP stream (default is `127.0.0.1`).
    - `PULSE_AUDIO_PORT`: Port number for the TCP stream (default is `8000`).
@@ -42,7 +42,7 @@ This script allows you to start, stop, and check the status of a PulseAudio TCP 
 Run the script with one of the following commands:
 
 ```bash
-./Nethunter_PulseAudio.sh {start|stop|status}
+./audio {start|stop|status}
 ```
 
 ### Commands
@@ -56,19 +56,19 @@ Run the script with one of the following commands:
 To start the audio stream on `127.0.0.1:8000`:
 
 ```bash
-./Nethunter_PulseAudio.sh start
+./audio start
 ```
 
 To stop the audio stream:
 
 ```bash
-./Nethunter_PulseAudio.sh stop
+./audio stop
 ```
 
 To check the stream status:
 
 ```bash
-./Nethunter_PulseAudio.sh status
+./audio status
 ```
 
 ## How It Works

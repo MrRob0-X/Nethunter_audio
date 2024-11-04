@@ -32,21 +32,21 @@ sudo apt-get update && sudo apt-get install -y pulseaudio
 ### Start Audio Streaming
 To start the audio streaming, use the following command:
 ```bash
-./Nethunter_PulseAudio.sh start
+./audio start
 ```
 - This command will check if PulseAudio is running, start it if necessary, and load the TCP module for audio streaming.
 
 ### Stop Audio Streaming
 To stop the audio streaming, run:
 ```bash
-./Nethunter_PulseAudio.sh stop
+./audio stop
 ```
 - This will unload the TCP module and stop PulseAudio if no other modules are in use.
 
 ### Check Audio Stream Status
 To check if the audio stream is running, use:
 ```bash
-./Nethunter_PulseAudio.sh status
+./audio status
 ```
 - This will display whether the audio stream is active along with any relevant error codes.
 
