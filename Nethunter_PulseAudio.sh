@@ -40,10 +40,14 @@ function start_pulseaudio() {
         exit 1
     fi
 }
+
 # Load the TCP module for audio streaming
 function start_stream() {
-    # Unload the module if already loaded
-    stop_stream
+    # Check if the TCP module is already loaded
+    if pactl list modules | grep -q "$MODULE_NAME"; then
+        echo -e "${YELLOW}Audio stream is already active on $PULSE_AUDIO_IP:$PULSE_AUDIO_PORT.${NC}"
+        return
+    fi
 
     # Start the TCP module
     pactl load-module "$MODULE_NAME" rate="$PULSE_AUDIO_RATE" format="$PULSE_AUDIO_FORMAT" \
