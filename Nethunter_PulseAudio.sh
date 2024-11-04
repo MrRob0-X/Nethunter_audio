@@ -18,15 +18,28 @@ PULSE_AUDIO_FORMAT="s16le"  # Audio format
 PULSE_AUDIO_CHANNELS="2"    # Number of audio channels
 MODULE_NAME="module-simple-protocol-tcp"
 
-# Start PulseAudio if not already running
+# Check PulseAudio status and configure it accordingly 
 function start_pulseaudio() {
     pulseaudio --check 2>/dev/null || pulseaudio --start > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then
-        echo -e "${RED}Failed to start PulseAudio. Please check PulseAudio installation.${NC}"
+        echo -e "${RED}Failed to start PulseAudio.${NC}"
+        if ! command -v pulseaudio &>/dev/null; then
+            echo -e "${YELLOW}PulseAudio is not installed.${NC}"
+            echo -e "${BLUE}Would you like to install it now? (yes/no):${NC}"
+            read -r response
+            if [[ "$response" =~ ^([Yy][Ee][Ss]|[Yy])$ ]]; then
+                echo -e "${GREEN}Installing PulseAudio...${NC}"
+                sudo apt-get update && sudo apt-get install -y pulseaudio
+                echo -e "${GREEN}PulseAudio installed successfully.${NC}"
+            else
+                echo -e "${RED}PulseAudio is required for audio services to function properly. Exiting setup.${NC}"
+            fi
+        else
+            echo -e "${RED}Please check your PulseAudio installation and try again.${NC}"
+        fi
         exit 1
     fi
 }
-
 # Load the TCP module for audio streaming
 function start_stream() {
     # Unload the module if already loaded
