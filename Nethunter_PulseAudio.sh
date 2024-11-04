@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Credits to :
 # t.me/@Pero_Sar1111 for Paraphrasing the base script.
-# t.me/@MrRobin_Ho_Od for the idea of the project(Base script https://github.com/MrRob0-X/Nethunter_audio/blob/main/audio).
+# t.me/@MrRobin_Ho_Od for the idea of the project(ALT script https://github.com/MrRob0-X/Nethunter_audio/blob/main/audio).
 
 # Define color codes
 RED="\033[0;31m"
