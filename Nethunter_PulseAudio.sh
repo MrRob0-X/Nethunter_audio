@@ -41,7 +41,7 @@ function start_pulseaudio() {
     fi
 }
 
-# Load the TCP module for audio streaming
+# Load the TCP module for audio streaming and enhance audio quality
 function start_stream() {
     # Check if the TCP module is already loaded
     if pactl list modules | grep -q "$MODULE_NAME"; then
@@ -57,6 +57,11 @@ function start_stream() {
     if [[ $? -eq 0 ]]; then
         echo -e "${YELLOW}Starting the TCP module.${NC}"
         echo -e "${GREEN}Audio stream started on $PULSE_AUDIO_IP:$PULSE_AUDIO_PORT.${NC}"
+        
+        # Set audio quality
+        pactl set-sink-volume @DEFAULT_SINK@ 100%  # Sets volume to 100%
+        pactl set-sink-mute @DEFAULT_SINK@ 0       # Ensures sound is unmuted
+        echo -e "${GREEN}Audio quality enhanced: Volume set to 100% and unmuted.${NC}"
     else
         echo -e "${RED}Failed to start audio stream. Please check PulseAudio configuration.${NC}"
     fi
