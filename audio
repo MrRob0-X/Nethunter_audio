@@ -69,15 +69,15 @@ function start_stream() {
 
 # Unload the TCP module and stop PulseAudio if no other modules are in use
 function stop_stream() {
-    module_id=$(pactl list short modules | grep "$MODULE_NAME" | awk '{print $1}')
+    module_id=$(pactl list short modules 2>/dev/null | grep "$MODULE_NAME" | awk '{print $1}')
     if [[ -n "$module_id" ]]; then
         pactl unload-module "$module_id"
         echo -e "${YELLOW}Audio stream stopped.${NC}"
 
         # Check if PulseAudio should be stopped
-        remaining_modules=$(pactl list short modules)
+        remaining_modules=$(pactl list short modules 2>/dev/null | grep "$MODULE_NAME" | awk '{print $1}')
         if [[ -z "$remaining_modules" ]]; then
-            pulseaudio --kill
+            pulseaudio --kill 2>/dev/null
             echo "PulseAudio stopped."
         fi
     else
